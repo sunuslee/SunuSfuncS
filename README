@@ -1,0 +1,9 @@
+here are some functions i think i might need in the
+future.
+hope you find them useful, too.
+
+functions #0:
+join the strings with delimeter string 'delim' , return buf.
+this function has no safety check.
+strjoin(char *buf, char *delim, "string1", "string2", "string3", ...)
+
