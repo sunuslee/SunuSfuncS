@@ -8,7 +8,16 @@
  *  the parameters MUST END WITH NULL.
  *  No safety check for this function, buf MUST BE BIG ENOUGH!
  */
-char *strjoin(char *buf, char *delim, ...)
+/*
+ *  update**
+ *  sunus lee
+ *  Mar 15, 2012
+ *  you do NOT need to manually add the last parameters(NULL)
+ *  anymore, i wrote a warpper to do this for you already!
+ *  now just call strjoin(buf, "^^", "str1", "str2", "str3");
+ */
+#define strjoin(...)    _strjoin(__VA_ARGS__, NULL)
+char *_strjoin(char *buf, char *delim, ...)
 {
     char *p, *res, *d;
     int i = 0;
@@ -36,9 +45,11 @@ char *strjoin(char *buf, char *delim, ...)
 
 int main()
 {
-    char buf[200];
+    char buf[200] = "i am buf";
     char *p;
-    p = strjoin(buf, "^_^", "i am sunus", "vivian is me", "i play counter-strike.", NULL);
+    p = strjoin(buf, "^_^", buf, "i am sunus", "vivian is me", "i play counter-strike.");
+    printf("p is :\n%s", p);
+    p = strjoin(buf, "^_^", "first line", "i am sunus", "vivian is me", "i play counter-strike.");
     printf("p is :\n%s", p);
     return 0;
 }
