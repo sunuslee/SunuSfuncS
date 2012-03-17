@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 /*
  *  sunus lee
  *  Mar 10, 2012
@@ -43,6 +44,33 @@ char *_strjoin(char *buf, char *delim, ...)
     return buf;
 }
 
+/*
+ * sunus lee
+ * Mar 17, 2012
+ * this function returns the first substring between 'start' and 'end',
+ * and store it in buf.
+ * buf must be big enought,
+ * if nothing found, returns NULL
+ * eg:
+ * p = strbetween(buf, "sdfhasdfh<start>haha i am the target!<end> tsdfsdfmess", "<start>", "<end>");
+ */
+char *strbetween(char *buf, const char *str, const char *start, const char *end)
+{
+    char *s, *e;
+    char *res = buf;
+    s = strstr(str, start);
+    if(!s)
+        return NULL;
+    e = strstr(s, end);
+    if(!e)
+        return NULL;
+    s += strlen(start);
+    while(s < e)
+        *buf++ = *s++;
+    *buf = 0;
+    return res;
+}
+
 int main()
 {
     char buf[200] = "i am buf";
@@ -51,5 +79,8 @@ int main()
     printf("p is :\n%s", p);
     p = strjoin(buf, "^_^", "first line", "i am sunus", "vivian is me", "i play counter-strike.");
     printf("p is :\n%s", p);
+    p = strbetween(buf, "sdfhasdfh<start>haha i am the target!<end> tsdfsdfmess", "<start>", "<end>");
+    printf("buf:\n%s", p);
     return 0;
 }
+
