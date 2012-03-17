@@ -2,9 +2,17 @@ here are some functions i think i might need in the future.
 hope you find them useful, too.
 
 functions #0:
+char *strjoin(char *buf, char *delim, "string1", "string2", "string3", ..., NULL)
+
 join the strings with delimeter string 'delim' , the last string MUST BE 'NULL'
 return buf.
 this function has no SAFETY check, buf must be BIG ENOUGH.
 
-strjoin(char *buf, char *delim, "string1", "string2", "string3", ..., NULL)
 
+functions #1:
+char *strbetween(char *buf, char *string, char *start, char *end);
+
+this function returns the first substring between 'start' and 'end',
+and store it in buf.
+buf must be big enought,
+if nothing found, returns NULL
