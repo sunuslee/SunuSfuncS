@@ -17,8 +17,8 @@
  *  anymore, i wrote a warpper to do this for you already!
  *  now just call strjoin(buf, "^^", "str1", "str2", "str3");
  */
-#define strjoin(...)    _strjoin(__VA_ARGS__, NULL)
-char *_strjoin(char *buf, char *delim, ...)
+#define sstrjoin(...)    _sstrjoin(__VA_ARGS__, NULL)
+char *_sstrjoin(char *buf, char *delim, ...)
 {
     char *p, *res, *d;
     int i = 0;
@@ -54,33 +54,72 @@ char *_strjoin(char *buf, char *delim, ...)
  * eg:
  * p = strbetween(buf, "sdfhasdfh<start>haha i am the target!<end> tsdfsdfmess", "<start>", "<end>");
  */
-char *strbetween(char *buf, const char *str, const char *start, const char *end)
+/* 
+ * get the No.'n' substring between 'start' and 'end'
+ * n starts from 1.
+ */
+char *sstrbetween(char *buf, const char *str, const char *start, const char *end, int n)
 {
+    int step;
     char *s, *e;
     char *res = buf;
-    s = strstr(str, start);
+    step = strlen(start);
+    while(n--)
+    {
+        s = strstr(str, start);
+        str = (s + step);
+    };
     if(!s)
         return NULL;
     e = strstr(s, end);
     if(!e)
         return NULL;
-    s += strlen(start);
+    s += step;
     while(s < e)
         *buf++ = *s++;
     *buf = 0;
     return res;
 }
 
+char *sstrrep(char *str, const char *old, const char *new, int times)
+{
+    int all, stepo, stepn;
+    char *s;
+    char *res = str;
+    static char b[1024];
+    char *buf = b;
+    all = (times == 0 ? 1 : 0);
+    stepo = strlen(old);
+    stepn = strlen(new);
+    while(times-- || all)
+    {
+        s = strstr(str, old);
+        if(!s)
+        {
+            break;
+        }
+        while(str < s)
+        {
+            *buf++ = *str++;
+        }
+        while(*buf++ = *new++)
+            ;
+        buf--;
+        new -= (stepn + 1);
+        str = (s + stepo);
+    }
+    while(*buf++ = *str++) ;
+    *buf = 0;
+    strcpy(res, b);
+    return res;
+}
 int main()
 {
-    char buf[200] = "i am buf";
+    char buf[300] = " 32                         <h3><a href=33                                 \"mailto:sunuslee@gmail.com\">sunuslee@gmail.com</a></h3><!-- __mail__ -->34 35                         <h3>13821789599</h3><!-- __phone__ -->";
     char *p;
-    p = strjoin(buf, "^_^", buf, "i am sunus", "vivian is me", "i play counter-strike.");
-    printf("p is :\n%s", p);
-    p = strjoin(buf, "^_^", "first line", "i am sunus", "vivian is me", "i play counter-strike.");
-    printf("p is :\n%s", p);
-    p = strbetween(buf, "sdfhasdfh<start>haha i am the target!<end> tsdfsdfmess", "<start>", "<end>");
+    p = sstrrep(buf, "<h3>", "replace", 1);
     printf("buf:\n%s", p);
+
     return 0;
 }
 

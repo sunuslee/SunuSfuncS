@@ -16,3 +16,11 @@ this function returns the first substring between 'start' and 'end',
 and store it in buf.
 buf must be big enought,
 if nothing found, returns NULL
+
+functions #2:
+char *sstrrep(char *str, const char *old, const char *new, int times)
+
+replace the substring 'old' with 'new' for 'times' times;
+if times == 0, then replace all 'old' with 'new'
+return str on success, NULL on error.
+NOTE: if can not find 'times' 'old', return NULL as well.

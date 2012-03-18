@@ -19,3 +19,14 @@ char *strjoin(char *buf, char *delim, ...);
  * p = strbetween(buf, "sdfhasdfh<start>haha i am the target!<end> tsdfsdfmess", "<start>", "<end>");
  */
 char *strbetween(char *buf, const char *str, const char *start, const char *end);
+
+/*
+ * sunus lee
+ * Mar 18, 2012
+ * find the substring 'old' and replace it with 'new' 'times' times.
+ * if times == 0, replace all 'old' substring with new
+ * return str on success, NULL on error:
+ * if can not find 'times' times substring, return NULL as well
+ */
+char *sstrrep(char *str, const char *old, const char *new, int times);
+
